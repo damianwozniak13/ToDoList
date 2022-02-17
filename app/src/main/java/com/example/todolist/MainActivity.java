@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         items = new ArrayList<>();
         itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         listView.setAdapter(itemsAdapter);
-        setUpListViewListener();
+        removeItem();
         loadItems();
     }
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) { }
     }
 
-    private void setUpListViewListener() {
+    private void removeItem() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Item removed", Toast.LENGTH_LONG).show();
                 items.remove(i);
                 itemsAdapter.notifyDataSetChanged();
+                saveItems();
                 return false;
             }
         });
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     writer.flush();
                 }
                 writer.close();
-                Toast.makeText(MainActivity.this, "Saved your text", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_LONG).show();
             } catch (Exception e) { }
         }
     }
